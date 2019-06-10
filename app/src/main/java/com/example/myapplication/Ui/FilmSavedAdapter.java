@@ -1,15 +1,31 @@
 package com.example.myapplication.Ui;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
+import java.util.List;
+
+public class FilmSavedAdapter extends RecyclerView.Adapter<FilmSavedAdapter.ViewHolder> {
+
+    private LayoutInflater layoutInflater;
+    private List<Object> list;
+    private Context context;
+
+    public FilmSavedAdapter(LayoutInflater layoutInflater, List<Object> list, Context context) {
+        this.layoutInflater = layoutInflater;
+        this.list = list;
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return null;
     }
 
@@ -24,6 +40,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
