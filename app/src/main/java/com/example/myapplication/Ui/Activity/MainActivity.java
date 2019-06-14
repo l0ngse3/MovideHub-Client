@@ -27,6 +27,7 @@ import com.example.myapplication.Model.APIConnectorUltils;
 import com.example.myapplication.Model.Account;
 import com.example.myapplication.Model.ShareViewModel;
 import com.example.myapplication.R;
+import com.example.myapplication.Service.ClientService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -71,12 +72,9 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                final Account account = new Account();
-                final String username = txtUserName.getText().toString();
+                String username = txtUserName.getText().toString();
                 String password = txtPassword.getText().toString();
-                account.setUsername(username);
-                account.setPassword(password);
+
 //                Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
 //                intent.putExtra("username", username);
@@ -88,60 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (password.isEmpty()) {
                     txtPassword.setError("Password required");
                 } else {
-
-                    queue = Volley.newRequestQueue(context.getApplicationContext());
-                    String url = APIConnectorUltils.HOST_NAME + "AuthorService/authors";
-
-                    Log.d("Mine Request", "onRequest" + url);
-
                     if (checkBoxRememberMe.isChecked()) {
                         saveRemmemberMe(username, password);
                     }
-
-                    JSONObject object = new JSONObject();
-                    try {
-                        object.put("username", username);
-                        object.put("password", password);
-                        Log.d("Mine Response", "data : " + object);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-
-                                        try {
-                                            if (Boolean.parseBoolean(response.getString("result"))) {
-                                                Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-                                                intent.putExtra("username", username);
-                                                startActivity(intent);
-                                            } else {
-                                                Toast.makeText(MainActivity.this, "Login failure!", Toast.LENGTH_SHORT).show();
-                                                txtUserName.setError("Wrong username!");
-                                                txtPassword.setError("Wrong password!");
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        Log.d("Mine Response", "onResponse: " + response);
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(MainActivity.this, "Connection to server have problems!", Toast.LENGTH_SHORT).show();
-                                        Log.d("Mine ERROR", "onErrorResponse: " + error.toString());
-                                    }
-                                });
-                        queue.start();
-                        queue.add(jsonObjectRequest);
-                    } catch (JSONException e) {
-                        Log.d("Mine ERROR", "Exeption: " + e.toString());
-                    }
-
+                    ClientService service = new ClientService();
+                    service.postLogin(username, password, context);
                 }
-
-
             }
             //end on click
         });
@@ -171,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!password.equals(passwordConfirm)) {
                     txtConfirmPassword.setError("Password not matched");
                 } else {
-
+                    ClientService service =  new ClientService();
+                    service.postRegister(username, password, context);
                 }
             }
         });
