@@ -15,14 +15,14 @@ public class Profile {
     private String lastName;
     @SerializedName("image")
     @Expose
-    private byte[] image;
+    private String image;
 
     public Profile() {
         super();
     }
 
     public Profile(String username, String fistName, String lastName,
-                   byte[] image) {
+                   String image) {
         super();
         this.username = username;
         this.fistName = fistName;
@@ -54,11 +54,11 @@ public class Profile {
         this.lastName = lastName;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

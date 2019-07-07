@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 public class ShareViewModel extends AndroidViewModel {
     private MutableLiveData<String> username = new MutableLiveData<>();
+    private MutableLiveData<String> profile = new MutableLiveData<>();
 
     public ShareViewModel(@NonNull Application application) {
         super(application);
@@ -24,5 +25,13 @@ public class ShareViewModel extends AndroidViewModel {
     public LiveData<String> getUsername()
     {
         return username;
+    }
+
+    public MutableLiveData<String> getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile.setValue(profile);
     }
 }

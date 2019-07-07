@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Ui.Activity.MainActivity">
-
 
     <TextView
         android:id="@+id/txtWelcome"
@@ -178,4 +178,14 @@
         android:textAllCaps="false"
         android:textColor="#fff"
         android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:background="@null"
+        android:src="@android:drawable/ic_delete" />
+
 </LinearLayout>

@@ -13,31 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.*;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Model.APIConnectorUltils;
-import com.example.myapplication.Model.Account;
 import com.example.myapplication.Model.ShareViewModel;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.ClientService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnLogin;
     Button btnRegisterOpen, btnRegisterSend;
+    ImageButton btnBack;
     CheckBox checkBoxRememberMe;
 
-    RequestQueue queue;
     ShareViewModel viewModel;
     Context context;
 
@@ -75,12 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 String username = txtUserName.getText().toString();
                 String password = txtPassword.getText().toString();
 
-//                Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-//                intent.putExtra("username", username);
-//                startActivity(intent);
-
-
                 if (username.isEmpty()) {
                     txtUserName.setError("User name required");
                 } else if (password.isEmpty()) {
@@ -88,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if (checkBoxRememberMe.isChecked()) {
                         saveRemmemberMe(username, password);
+                    }
+                    else {
+                        saveRemmemberMe("", "");
                     }
                     ClientService service = new ClientService();
                     service.postLogin(username, password, context);
@@ -105,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 checkBoxRememberMe.setVisibility(View.GONE);
                 btnRegisterOpen.setVisibility(View.GONE);
 
+                btnBack.setVisibility(View.VISIBLE);
                 txtRegister.setVisibility(View.VISIBLE);
                 txtConfirmPasswordLayout.setVisibility(View.VISIBLE);
                 btnRegisterSend.setVisibility(View.VISIBLE);
@@ -126,6 +107,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtWelcome.setVisibility(View.VISIBLE);
+                btnLogin.setVisibility(View.VISIBLE);
+                checkBoxRememberMe.setVisibility(View.VISIBLE);
+                btnRegisterOpen.setVisibility(View.VISIBLE);
+
+                txtRegister.setVisibility(View.GONE);
+                btnBack.setVisibility(View.GONE);
+                txtConfirmPasswordLayout.setVisibility(View.GONE);
+                btnRegisterSend.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void saveRemmemberMe(String u, String p) {
@@ -145,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
 
             txtUserName.setText(username);
             txtPassword.setText(password);
+            if(!txtUserName.getText().toString().isEmpty())
+            {
+                checkBoxRememberMe.setChecked(true);
+            }
+            else
+            {
+                checkBoxRememberMe.setChecked(false);
+            }
         }
 
     }
@@ -166,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegisterOpen = findViewById(R.id.btnRegisterOpen);
         btnRegisterSend = findViewById(R.id.btnRegisterSend);
+        btnBack = findViewById(R.id.btnBack);
 
 
         checkRemmemberMe();
