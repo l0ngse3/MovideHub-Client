@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkBoxRememberMe;
 
     ShareViewModel viewModel;
-    Context context;
+    MainActivity context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

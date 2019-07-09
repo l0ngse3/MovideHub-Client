@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.Fragment.HomeFragment">
+    tools:context=".Ui.Fragment.HomeFragment"
+    android:background="@color/colorAccent">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is home fragment" />
-
+        android:layout_height="2dp"
+        android:background="#fff"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcyFilmVertical"
+        android:id="@+id/rcyGenreHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="9dp">
+        android:layout_marginRight="9dp"
+        android:layout_marginLeft="9dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

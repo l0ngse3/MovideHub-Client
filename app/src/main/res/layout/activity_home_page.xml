@@ -51,6 +51,7 @@
             app:layout_constraintRight_toLeftOf="@id/imgProfileAva"
             app:layout_constraintTop_toTopOf="parent" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
@@ -60,7 +61,8 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginBottom="?attr/actionBarSize"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-        app:layout_constraintTop_toBottomOf="@id/topbarLayout"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/topbarLayout">
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

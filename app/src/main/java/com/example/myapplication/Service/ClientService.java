@@ -43,7 +43,7 @@ public class ClientService {
     }
 
     // login service
-    public void postLogin(final String username, String password, final Context context) {
+    public void postLogin(final String username, String password, final MainActivity context) {
 
         queue = Volley.newRequestQueue(context.getApplicationContext());
         String url = APIConnectorUltils.HOST_NAME + "AuthorService/authors";
@@ -66,6 +66,7 @@ public class ClientService {
                                     Intent intent = new Intent(context, HomePageActivity.class);
                                     intent.putExtra("username", username);
                                     context.startActivity(intent);
+                                    context.finish();
                                 } else {
                                     Toast.makeText(context, "Login failure!", Toast.LENGTH_SHORT).show();
                                 }
@@ -90,7 +91,7 @@ public class ClientService {
     }
 
     //register service***************************************************
-    public void postRegister(final String username, String password, final Context context) {
+    public void postRegister(final String username, String password, final MainActivity context) {
         queue = Volley.newRequestQueue(context.getApplicationContext());
         String url = APIConnectorUltils.HOST_NAME + "AuthorService/register";
 //        Log.d("Mine Request", "onRequest" + url);
@@ -114,6 +115,7 @@ public class ClientService {
                                     Intent intent = new Intent(context, HomePageActivity.class);
                                     intent.putExtra("username", username);
                                     context.startActivity(intent);
+                                    context.finish();
                                 } else {
                                     Toast.makeText(context, response.getString("announce"), Toast.LENGTH_SHORT).show();
                                 }
@@ -185,7 +187,7 @@ public class ClientService {
 
     }
 
-    // get info accoungt*******************************************************************
+    // get info film *******************************************************************
 
 
 

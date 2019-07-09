@@ -14,9 +14,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -48,8 +52,9 @@ public class ProfileFragment extends Fragment {
 
     ImageView imgAva;
     TextView txtUser;
-    EditText edtFullname;
+    TextView txtFullname;
     ShareViewModel viewModel;
+
 
     Profile profile;
     Bitmap bitmap;
@@ -78,6 +83,8 @@ public class ProfileFragment extends Fragment {
                 startActivityForResult(photoPicker, REQUEST_CODE_PHOTO);
             }
         });
+
+
     }
 
 
@@ -112,7 +119,7 @@ public class ProfileFragment extends Fragment {
 
     private void init(final View view) {
         imgAva = view.findViewById(R.id.imgAva);
-        edtFullname = view.findViewById(R.id.txtFullname);
+        txtFullname = view.findViewById(R.id.txtFullname);
         txtUser = view.findViewById(R.id.txtUser);
         context = this.getContext();
         this.view = view;
@@ -134,9 +141,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 Profile profile = new Gson().fromJson(s, Profile.class);
-                edtFullname.setText(profile.getFistName() + " " + profile.getLastName());
+                txtFullname.setText(profile.getFistName() + " " + profile.getLastName());
 
                 Glide.with(context).load(APIConnectorUltils.HOST_STORAGE_IMAGE + profile.getImage())
+                        .placeholder(R.drawable.saitama)
                         .centerCrop()
                         .apply(RequestOptions.circleCropTransform())
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -178,7 +186,7 @@ public class ProfileFragment extends Fragment {
     private String bitmapToString(Bitmap bitmap)
     {
         ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, arrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 50, arrayOutputStream);
         byte[] imageByte = arrayOutputStream.toByteArray();
         return Base64.encodeToString(imageByte, Base64.DEFAULT);
     }

@@ -12,12 +12,10 @@ import java.util.List;
 
 public class FilmSavedAdapter extends RecyclerView.Adapter<FilmSavedAdapter.ViewHolder> {
 
-    private LayoutInflater layoutInflater;
     private List<Object> list;
     private Context context;
 
-    public FilmSavedAdapter(LayoutInflater layoutInflater, List<Object> list, Context context) {
-        this.layoutInflater = layoutInflater;
+    public FilmSavedAdapter(List<Object> list, Context context) {
         this.list = list;
         this.context = context;
     }

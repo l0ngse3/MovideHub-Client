@@ -20,7 +20,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtFullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +44,17 @@
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgAva" />
+
+        <ImageView
+            android:id="@+id/imgSaveProfile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="252dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFullname"
+            android:src="@drawable/ic_checked"
+            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

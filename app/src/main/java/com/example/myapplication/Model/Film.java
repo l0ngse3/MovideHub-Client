@@ -1,5 +1,7 @@
 package com.example.myapplication.Model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -119,5 +121,11 @@ public class Film {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "id: "+id_film+"\ntitle: "+title_film;
     }
 }

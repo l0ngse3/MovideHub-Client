@@ -2,14 +2,20 @@ package com.example.myapplication.Ui.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +48,9 @@ public class HomePageActivity extends AppCompatActivity {
 
     Profile profile;
     Context context;
+    PopupMenu popup;
+    HomePageActivity homePageActivity = this;
+
 
 
     @Override
@@ -81,7 +90,9 @@ public class HomePageActivity extends AppCompatActivity {
                             @Override
                             public void onChanged(String s) {
 
-                                Glide.with(context).load(APIConnectorUltils.HOST_STORAGE_IMAGE + new Gson().fromJson(s, Profile.class).getImage())
+                                Glide.with(context)
+                                        .load(APIConnectorUltils.HOST_STORAGE_IMAGE + new Gson().fromJson(s, Profile.class).getImage())
+                                        .placeholder(R.drawable.saitama)
                                         .centerCrop()
                                         .apply(RequestOptions.circleCropTransform())
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -138,6 +149,35 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+        //show popup menu when click to image avatar
+        imgProfileAva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popup = new PopupMenu(context,view);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId())
+                        {
+                            case R.id.action_log_out:
+                                context.startActivity(new Intent(context, MainActivity.class));
+                                homePageActivity.finish();
+                                return true;
+
+                            case R.id.action_settings:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
+                                txtTitle.setText("Profile");
+                                return true;
+                        }
+                        return false;
+                    }
+                });// to implement on click event on items of menu
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.home, popup.getMenu());
+                popup.show();
+            }
+        });
     }
 
+    /******************************************************/
 }
