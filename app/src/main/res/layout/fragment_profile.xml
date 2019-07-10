@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/txtUser"
             android:layout_width="100dp"
-            android:layout_height="16dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
@@ -45,16 +45,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgAva" />
 
-        <ImageView
-            android:id="@+id/imgSaveProfile"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="252dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFullname"
-            android:src="@drawable/ic_checked"
-            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

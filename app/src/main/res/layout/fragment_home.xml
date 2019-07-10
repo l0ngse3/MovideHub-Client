@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.Fragment.HomeFragment"
-    android:background="@color/colorAccent">
+    android:background="@color/colorAccent"
+    tools:context=".Ui.Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#fff"/>
+        android:background="#fff" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyGenreHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="9dp"
         android:layout_marginRight="9dp"
-        android:layout_marginLeft="9dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:descendantFocusability="blocksDescendants"></androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

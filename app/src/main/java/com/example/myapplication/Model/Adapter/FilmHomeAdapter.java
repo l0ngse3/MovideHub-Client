@@ -37,7 +37,7 @@ public class FilmHomeAdapter extends RecyclerView.Adapter<FilmHomeAdapter.ViewHo
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View homeFilm = inflater.inflate(R.layout.list_sub_item_fiml_of_category, parent, false);
+        View homeFilm = inflater.inflate(R.layout.list_sub_item_fiml_of_genre, parent, false);
         ViewHolder viewHolder = new ViewHolder(homeFilm);
         return viewHolder;
     }
