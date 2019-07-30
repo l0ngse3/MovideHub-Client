@@ -7,17 +7,20 @@
     tools:context=".Ui.Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#fff" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcyGenreHome"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="9dp"
-        android:layout_marginRight="9dp"
-        android:descendantFocusability="blocksDescendants"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcyGenreHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:descendantFocusability="blocksDescendants"></androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </FrameLayout>

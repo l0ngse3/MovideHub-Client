@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorAccent"
+    tools:context=".Ui.Activity.FilmActivity">
+
+
+    <TextView
+        android:id="@+id/txtTitleFilm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Title"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:fontFamily="@font/audiowide"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgThumbnailFilm"
+        android:layout_width="128dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitleFilm" />
+
+    <TextView
+        android:id="@+id/txtViewFilm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="3dp"
+        android:text="Views: 1000"
+        android:textColor="#fff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgThumbnailFilm" />
+
+    <TextView
+        android:id="@+id/txtRateFilm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="3dp"
+        android:text="Imdb: 8.5/10"
+        android:textColor="#fff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtViewFilm" />
+
+    <TextView
+        android:id="@+id/txtDescriptionFilm"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="55dp"
+        android:lines="10"
+        android:textColor="#fff"
+        android:maxLines="10"
+        app:layout_constraintLeft_toRightOf="@id/imgThumbnailFilm"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTrailerFilm"
+        android:layout_width="42dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_trailer_film"
+        android:text="Trailer"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRateFilm" />
+
+    <Button
+        android:id="@+id/btnWatchFilm"
+        android:layout_width="42dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_watch_film"
+        android:text="Play"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/btnTrailerFilm"
+        app:layout_constraintTop_toBottomOf="@id/txtRateFilm" />
+
+    <ImageView
+        android:id="@+id/btnLoveFilm"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_like"
+        app:layout_constraintLeft_toRightOf="@id/btnWatchFilm"
+        app:layout_constraintTop_toBottomOf="@id/txtRateFilm" />
+
+    <TextView
+        android:id="@+id/txtPlayMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Trailer"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTrailerFilm" />
+
+
+    <LinearLayout
+        android:id="@+id/layoutVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/txtPlayMode">
+
+        <VideoView
+            android:id="@+id/videoViewFilm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtCommentView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Comment"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutVideo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentView"
+        android:gravity="center_horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcyComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comment"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
@@ -13,14 +14,14 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:id="@+id/frameThumbnail"
+            android:id="@+id/frameSaved"
             android:layout_width="128dp"
             android:layout_height="72dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imgThumbnail"
+                android:id="@+id/imgSaved"
                 android:layout_width="128dp"
                 android:layout_height="72dp"
                 android:src="@color/colorPrimaryDark"
@@ -35,23 +36,23 @@
                 android:max="100"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgThumbnail" />
+                app:layout_constraintTop_toBottomOf="@+id/imgSaved" />
 
             <TextView
-                android:id="@+id/txtTimeThumbnail"
+                android:id="@+id/txtDurationSaved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
                 android:layout_marginTop="40dp"
+                android:layout_gravity="right"
                 android:background="@drawable/text_time_thumbnail"
                 android:padding="3dp"
-                android:text="40:25"
+                android:text="40:25:00"
                 android:textColor="#fff"
                 android:textSize="15sp" />
         </FrameLayout>
 
         <TextView
-            android:id="@+id/txtTitleThumbnail"
+            android:id="@+id/txtTitleSaved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -59,11 +60,11 @@
             android:text="Film title"
             android:textColor="#FFF"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/frameThumbnail"
+            app:layout_constraintStart_toEndOf="@id/frameSaved"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtDescriptionThumbnail"
+            android:id="@+id/txtDescriptionSaved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -71,12 +72,12 @@
             android:text="Descrition"
             android:textColor="#fff"
             android:textSize="14sp"
-            app:layout_constraintLeft_toRightOf="@id/frameThumbnail"
-            app:layout_constraintStart_toEndOf="@id/frameThumbnail"
-            app:layout_constraintTop_toBottomOf="@id/txtTitleThumbnail" />
+            app:layout_constraintLeft_toRightOf="@id/frameSaved"
+            app:layout_constraintStart_toEndOf="@id/frameSaved"
+            app:layout_constraintTop_toBottomOf="@id/txtTitleSaved" />
 
         <TextView
-            android:id="@+id/txtViewThumbnail"
+            android:id="@+id/txtViewSaved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -84,10 +85,10 @@
             android:text="Descrition"
             android:textColor="#fff"
             android:textSize="14sp"
-            app:layout_constraintLeft_toRightOf="@id/frameThumbnail"
-            app:layout_constraintStart_toEndOf="@id/frameThumbnail"
-            app:layout_constraintTop_toBottomOf="@id/txtDescriptionThumbnail" />
+            app:layout_constraintLeft_toRightOf="@id/frameSaved"
+            app:layout_constraintStart_toEndOf="@id/frameSaved"
+            app:layout_constraintTop_toBottomOf="@id/txtDescriptionSaved" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

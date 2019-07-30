@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Ui.Activity.SearchActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#fff">
+
+        <TextView
+            android:id="@+id/txtTitleSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="12dp"
+            android:text="Search"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            app:fontFamily="@font/audiowide"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SearchView
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:scaleType="fitXY"
+            app:layout_editor_absoluteX="0dp"
+            app:layout_editor_absoluteY="0dp"
+            android:searchIcon="@drawable/icon_search"
+            android:searchHintIcon="@drawable/icon_search"
+            android:closeIcon="@drawable/ic_clear"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="25dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcySearch"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

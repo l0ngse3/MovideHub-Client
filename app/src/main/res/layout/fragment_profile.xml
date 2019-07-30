@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context=".Ui.Fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,17 +21,31 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/txtFullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="110dp"
-            android:text="User name bla bla bla bla"
-            android:textColor="#000"
+            android:text="username bla bla bla bla bla bla bla"
+            android:textColor="#ffffff"
+            android:maxLines="1"
+            android:maxWidth="220dp"
+            android:textCursorDrawable="@drawable/color_white_cursor"
             android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@+id/imgAva"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgChangeProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_menu_send"
+            app:layout_constraintLeft_toRightOf="@id/txtFullname"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="120dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/txtUser"
@@ -40,10 +55,37 @@
             android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
             android:text="Username"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgAva" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="4dp"
+            android:text="Watched Film"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/imgAva"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtUser" />
+
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@id/txtUser"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="190dp"
+            android:background="@color/colorAccent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcyFilmWatched"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,9 +20,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Model.APIConnectorUltils;
 import com.example.myapplication.Model.Account;
+import com.example.myapplication.Model.Film;
+import com.example.myapplication.Model.FilmWatched;
 import com.example.myapplication.Model.Profile;
 import com.example.myapplication.Model.ShareViewModel;
 import com.example.myapplication.R;
+import com.example.myapplication.Ui.Activity.FilmPlayActivity;
 import com.example.myapplication.Ui.Activity.HomePageActivity;
 import com.example.myapplication.Ui.Activity.MainActivity;
 import com.google.gson.Gson;
@@ -30,6 +34,8 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -187,8 +193,43 @@ public class ClientService {
 
     }
 
-    // get info film *******************************************************************
+    // put info film *******************************************************************
 
+    //update film views
+    public void updateFilmViews(Film film, final Context context)
+    {
+        queue = Volley.newRequestQueue(context);
+        String url = APIConnectorUltils.HOST_STORAGE_FILM + "Update/" + film.getId_film();
+        Log.d("Mine update views ", film.getFilm_views());
+        StringRequest request = new StringRequest(Request.Method.PUT, url, null, null);
+        queue.start();
+        queue.add(request);
+    }
+
+    //update current progress of film
+    public void updateFilmWatched(final FilmWatched filmWatched, final FilmPlayActivity context)
+    {
+        queue = Volley.newRequestQueue(context);
+        String url = APIConnectorUltils.HOST_STORAGE_FILM + "UpdateWatchedFilm/";
+        Log.d("Mine Current progress", url);
+
+        try {
+            JSONObject object = new JSONObject(new Gson().toJson(filmWatched));
+            Log.d("Mine updateFilmWatched", filmWatched.toString());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                    context.finish();
+                }
+            }, null);
+            queue.start();
+            queue.add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    //****************************************************
 
 
 }

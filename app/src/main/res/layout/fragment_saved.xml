@@ -5,11 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".Ui.Fragment.SavedFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshSaved"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="7dp">
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcyFilmSaved"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:background="@color/colorAccent"></androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.recyclerview.widget.RecyclerView>
+
 
 </FrameLayout>

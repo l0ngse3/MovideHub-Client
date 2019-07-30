@@ -7,9 +7,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,10 +29,9 @@ import com.example.myapplication.Model.Adapter.FilmHomeAdapter;
 import com.example.myapplication.Model.Adapter.GenreHomeAdapter;
 import com.example.myapplication.Model.Film;
 import com.example.myapplication.Model.Genre;
-import com.example.myapplication.Model.Profile;
+import com.example.myapplication.Model.ShareViewModel;
 import com.example.myapplication.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
@@ -45,10 +46,23 @@ public class HomeFragment extends Fragment {
     RecyclerView rcyGenreHome;
     List<Genre> genreList = new ArrayList<>();
     GenreHomeAdapter genreHomeAdapter;
+    String textQuery;
 
 
     Context context = getContext();
     HomeFragment fragment = this;
+    ShareViewModel viewModel;
+    String username;
+    SwipeRefreshLayout swipeRefreshHome;
+    View viewHome ;
+
+    public HomeFragment(String textQuery) {
+//        this.genreHomeAdapter.getFilter().filter(textQuery);
+        this.textQuery = textQuery;
+    }
+
+    public HomeFragment() {
+    }
 
     @Nullable
     @Override
@@ -59,28 +73,48 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+        process();
+    }
+
+    private void process() {
+        swipeRefreshHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                genreList.clear();
+                init(viewHome);
+            }
+        });
+
+
     }
 
     private void init(View view) {
+        viewHome = view;
         rcyGenreHome = view.findViewById(R.id.rcyGenreHome);
+        swipeRefreshHome = view.findViewById(R.id.swipeRefreshHome);
+
 
         List<String> genreListRequest = new ArrayList<>();
-        genreListRequest.add("Action");
-        genreListRequest.add("Adventure");
-        genreListRequest.add("Comedy");
-        genreListRequest.add("Cartoon");
-        genreListRequest.add("Horror");
-        genreListRequest.add("Romance");
-        genreListRequest.add("Science & Fiction");
+        genreListRequest.add("Action");//3
+        genreListRequest.add("Adventure");//2
+        genreListRequest.add("Comedy");//1
+        genreListRequest.add("Cartoon");//
+        genreListRequest.add("Horror");//5
+        genreListRequest.add("Romance");//
+        genreListRequest.add("Science & Fiction");//6
 
-        for (final String genre : genreListRequest) {
+        viewModel = ViewModelProviders.of(getActivity()).get(ShareViewModel.class);
+        username = viewModel.getUsername().getValue();
+
+        for (String genre : genreListRequest) {
             RequestQueue queue = Volley.newRequestQueue(getContext());
-            String url = APIConnectorUltils.HOST_STORAGE_FILM + "/" + genre;
+            String url = APIConnectorUltils.HOST_STORAGE_FILM + "Genre/" + genre;
             StringRequest request = new StringRequest(url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Log.d("Mine films", response);
+
 //                            Type type = new TypeToken<List<Film>>() {
 //                            }.getType();
                             Genre gen = new Genre();
@@ -92,34 +126,21 @@ public class HomeFragment extends Fragment {
                                 gen.setList((List<Film>) new Gson().fromJson(object.getString("list"), type));
 
 
-                                if (gen.getList().size() > 0)
-                                {
+                                if (gen.getList().size() > 0) {
                                     genreList.add(gen);
-                                    gen.toString();
-                                    for (int i = 0; i < 10; i++)
-                                    {
-                                        Film film = genreList.get(genreList.size() - 1).getList().get(0);
-                                        genreList.get(genreList.size() - 1).getList().add(film);
-                                    }
 
                                     genreHomeAdapter = new GenreHomeAdapter(genreList, fragment);
-                                    rcyGenreHome.setAdapter(genreHomeAdapter);
                                     rcyGenreHome.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+                                    rcyGenreHome.setAdapter(genreHomeAdapter);
                                     genreHomeAdapter.notifyDataSetChanged();
 
                                     Log.d("Mine film genre", response);
                                 }
-                                else if(genreList.size()>0)
-                                {
-                                    for(int i=0; i<3; i++)
-                                    {
-                                        genreList.add(genreList.get(genreList.size()-1));
-                                        genreHomeAdapter.notifyDataSetChanged();
-                                    }
-                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            swipeRefreshHome.setRefreshing(false);
                         }
                     },
                     new Response.ErrorListener() {
@@ -133,39 +154,8 @@ public class HomeFragment extends Fragment {
             queue.add(request);
         }
 
-
-        // load infor film from server
-//        RequestQueue queue = Volley.newRequestQueue(getContext());
-//        String url = APIConnectorUltils.HOST_STORAGE_FILM + "/FilmHome";
-//        StringRequest request = new StringRequest(url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d("Mine films", response);
-//                        Type type = new TypeToken<List<Film>>(){}.getType();
-//                        filmList = new Gson().fromJson(response, type);
-//
-//                        for(int i=0; i<30; i++)
-//                        {
-//                            Film film = filmList.get(0);
-//                            filmList.add(film);
-//                        }
-//                        filmHomeAdapter = new FilmHomeAdapter(filmList, fragment);
-//                        rcyGenreHome.setAdapter(filmHomeAdapter);
-//                        rcyGenreHome.setLayoutManager(new GridLayoutManager(context, 3));
-//                        filmHomeAdapter.notifyDataSetChanged();
-//
-//                        Log.d("Mine one film", filmList.get(0).toString());
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getContext(), "Missing data film.", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//        queue.start();
-//        queue.add(request);
+        //
     }
+
+
 }

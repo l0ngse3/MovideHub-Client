@@ -4,19 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,17 +42,22 @@ import com.example.myapplication.Ui.Fragment.SavedFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Field;
+
+
 public class HomePageActivity extends AppCompatActivity {
 
     private TextView txtTitle;
     private BottomNavigationView navigationView;
-    ImageView imgProfileAva;
+    ImageView imgProfileAva, imgSearch;
     ShareViewModel viewModel;
 
     Profile profile;
     Context context;
     PopupMenu popup;
     HomePageActivity homePageActivity = this;
+
+    MenuItem menuItem;
 
 
 
@@ -69,6 +77,7 @@ public class HomePageActivity extends AppCompatActivity {
         txtTitle = findViewById(R.id.txtTitle);
         navigationView = findViewById(R.id.bottom_nav);
         imgProfileAva = findViewById(R.id.imgProfileAva);
+        imgSearch = findViewById(R.id.imgSearch);
         context = HomePageActivity.this;
 
         viewModel = ViewModelProviders.of(this).get(ShareViewModel.class);
@@ -127,21 +136,24 @@ public class HomePageActivity extends AppCompatActivity {
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Toast.makeText(HomePageActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                menuItem = item;
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).addToBackStack(null).commit();
                         txtTitle.setText("Home");
+                        imgSearch.setVisibility(View.VISIBLE);
                         return true;
 
                     case R.id.nav_saved:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SavedFragment()).addToBackStack(null).commit();
                         txtTitle.setText("Saved");
+                        imgSearch.setVisibility(View.GONE);
                         return true;
 
                     case R.id.nav_profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                         txtTitle.setText("Profile");
+                        imgSearch.setVisibility(View.GONE);
                         return true;
                 }
 
@@ -157,6 +169,7 @@ public class HomePageActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
                         switch (item.getItemId())
                         {
                             case R.id.action_log_out:
@@ -167,6 +180,7 @@ public class HomePageActivity extends AppCompatActivity {
                             case R.id.action_settings:
                                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                                 txtTitle.setText("Profile");
+                                navigationView.setSelectedItemId(R.id.nav_profile);
                                 return true;
                         }
                         return false;
@@ -177,7 +191,19 @@ public class HomePageActivity extends AppCompatActivity {
                 popup.show();
             }
         });
+
+        //show search activity
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageActivity.this, SearchActivity.class);
+                intent.putExtra("username", viewModel.getUsername().getValue());
+                startActivity(intent);
+            }
+        });
     }
 
     /******************************************************/
+
+
 }

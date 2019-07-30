@@ -99,7 +99,20 @@ public class MainActivity extends AppCompatActivity {
                 String password = txtPassword.getText().toString();
                 String passwordConfirm = txtConfirmPassword.getText().toString();
 
-                if (!password.equals(passwordConfirm)) {
+
+                if(username.isEmpty())
+                {
+                    txtUserName.setError("Username required");
+                }
+                else if(password.isEmpty())
+                {
+                    txtPassword.setError("Password is empty");
+                }
+                else if(txtConfirmPassword.getText().toString().isEmpty())
+                {
+                    txtConfirmPassword.setError("Password is empty");
+                }
+                else if (!password.equals(passwordConfirm)) {
                     txtConfirmPassword.setError("Password not matched");
                 } else {
                     ClientService service =  new ClientService();
