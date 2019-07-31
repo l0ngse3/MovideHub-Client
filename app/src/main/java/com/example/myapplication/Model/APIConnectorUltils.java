@@ -12,5 +12,6 @@ public class APIConnectorUltils {
     public static final String HOST_STORAGE = "http://" + HOST + ":8080/Storage/";
     public static final String HOST_STORAGE_IMAGE = "http://" + HOST + ":8080/Storage/ImageProfile/";
     public static final String HOST_STORAGE_FILM = "http://" + HOST + ":8080/MovieHub_API/MovieHubClient/Film/";
+    public static final String HOST_STORAGE_COMMENT = "http://" + HOST + ":8080/MovieHub_API/MovieHubClient/Comment/";
 
 }

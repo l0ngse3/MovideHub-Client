@@ -46,6 +46,8 @@ public class SavedFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshSaved;
     View viewSaved;
 
+    ItemTouchHelper itemTouchHelper;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,8 @@ public class SavedFragment extends Fragment {
         swipeRefreshSaved = view.findViewById(R.id.swipeRefreshSaved);
         rcyFilmSaved = view.findViewById(R.id.rcyFilmSaved);
         fragment = this;
-        filmList = new ArrayList<>();
+        if(filmList == null )
+            filmList = new ArrayList<>();
 
         viewModel = ViewModelProviders.of(getActivity()).get(ShareViewModel.class);
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -94,12 +97,17 @@ public class SavedFragment extends Fragment {
                         for(Film film : films)
                             filmList.add(film);
 
-                        adapter = new FilmSavedAdapter(filmList, fragment);
-                        rcyFilmSaved.setAdapter(adapter);
-                        rcyFilmSaved.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
-                        itemTouchHelper.attachToRecyclerView(rcyFilmSaved);
-                        adapter.notifyDataSetChanged();
+                        if(adapter==null)
+                        {
+                            adapter = new FilmSavedAdapter(filmList, fragment);
+                            rcyFilmSaved.setAdapter(adapter);
+                            rcyFilmSaved.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                            itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
+                            itemTouchHelper.attachToRecyclerView(rcyFilmSaved);
+                        }
+                        else {
+                            adapter.notifyDataSetChanged();
+                        }
 
                         Log.d("Mine Film saved", response);
                     }

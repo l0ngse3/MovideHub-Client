@@ -2,6 +2,7 @@ package com.example.myapplication.Ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -27,9 +28,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Model.APIConnectorUltils;
+import com.example.myapplication.Model.Adapter.CommentAdapter;
+import com.example.myapplication.Model.Comment;
 import com.example.myapplication.Model.Film;
+import com.example.myapplication.Model.Profile;
 import com.example.myapplication.R;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FilmActivity extends AppCompatActivity {
@@ -38,6 +45,9 @@ public class FilmActivity extends AppCompatActivity {
     Button btnTrailerFilm, btnWatchFilm;
     ImageView btnLoveFilm, imgThumbnailFilm;
     VideoView videoViewFilm;
+
+    List<Comment> commentList;
+    CommentAdapter commentAdapter;
     RecyclerView rcyComment;
 
     LinearLayout layoutVideo;
@@ -149,6 +159,30 @@ public class FilmActivity extends AppCompatActivity {
                 queue.add(request);
             }
         });
+
+        //////////////////////////////////////////////////////////////
+        //comment init                                              //
+        //////////////////////////////////////////////////////////////
+        commentList = new ArrayList<>();
+        String urlCmt = APIConnectorUltils.HOST_STORAGE_COMMENT + "GetComment/"+film.getId_film();
+        StringRequest requestCmt = new StringRequest(Request.Method.GET, urlCmt,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Comment[] comments = new Gson().fromJson(response, Comment[].class);
+
+                        for(Comment item : comments)
+                            commentList.add(item);
+                        if(commentList.size()!=0)
+                        {
+                            commentAdapter = new CommentAdapter(commentList, context);
+                            rcyComment.setAdapter(commentAdapter);
+                            rcyComment.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+                        }
+                    }
+                }, null);
+        queue.start();
+        queue.add(requestCmt);
     }
 
     private void init() {

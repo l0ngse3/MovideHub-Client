@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -125,14 +126,18 @@ public class HomeFragment extends Fragment {
                                 }.getType();
                                 gen.setList((List<Film>) new Gson().fromJson(object.getString("list"), type));
 
-
                                 if (gen.getList().size() > 0) {
                                     genreList.add(gen);
 
-                                    genreHomeAdapter = new GenreHomeAdapter(genreList, fragment);
-                                    rcyGenreHome.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                                    rcyGenreHome.setAdapter(genreHomeAdapter);
-                                    genreHomeAdapter.notifyDataSetChanged();
+                                    if(genreHomeAdapter == null)
+                                    {
+                                        genreHomeAdapter = new GenreHomeAdapter(genreList, fragment);
+                                        rcyGenreHome.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+                                        rcyGenreHome.setAdapter(genreHomeAdapter);
+                                    }
+                                    else {
+                                        genreHomeAdapter.notifyItemInserted(genreList.size());
+                                    }
 
                                     Log.d("Mine film genre", response);
                                 }

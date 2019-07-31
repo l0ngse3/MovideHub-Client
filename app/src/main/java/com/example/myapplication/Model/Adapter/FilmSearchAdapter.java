@@ -64,8 +64,8 @@ public class FilmSearchAdapter  extends RecyclerView.Adapter<FilmSearchAdapter.V
         Glide.with(searchActivity).load(APIConnectorUltils.HOST_STORAGE + film.getThumbnail())
                 .centerCrop()
                 .apply(new RequestOptions().override(128, 72))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
                 .into(holder.imgSaved);
 
         holder.txtDescriptionSaved.setText("Imdb: "+film.getRate_imdb());

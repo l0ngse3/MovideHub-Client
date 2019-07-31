@@ -312,10 +312,16 @@ public class ProfileFragment extends Fragment {
                             film = new Gson().fromJson(response, Film.class);
                             listFilm.add(film);
 
-                            adapter = new FilmProfileAdapter(listFilm, listFilmWatched, fragment);
-                            rcyFilmWatched.setAdapter(adapter);
-                            rcyFilmWatched.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                            adapter.notifyDataSetChanged();
+                            if(adapter == null)
+                            {
+                                adapter = new FilmProfileAdapter(listFilm, listFilmWatched, fragment);
+                                rcyFilmWatched.setAdapter(adapter);
+                                rcyFilmWatched.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                            }
+                            else {
+                                adapter.notifyItemInserted(listFilm.size());
+                            }
+
 
                         }
                     },

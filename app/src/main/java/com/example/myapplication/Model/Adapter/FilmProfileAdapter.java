@@ -66,8 +66,8 @@ public class FilmProfileAdapter extends RecyclerView.Adapter<FilmProfileAdapter.
         Glide.with(fragment).load(APIConnectorUltils.HOST_STORAGE + film.getThumbnail())
                 .centerCrop()
                 .apply(new RequestOptions().override(128, 72))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
                 .into(holder.imgThumbnail);
 
 
