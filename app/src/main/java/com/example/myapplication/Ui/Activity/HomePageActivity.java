@@ -2,24 +2,19 @@ package com.example.myapplication.Ui.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,14 +30,12 @@ import com.example.myapplication.Model.APIConnectorUltils;
 import com.example.myapplication.Model.Profile;
 import com.example.myapplication.Model.ShareViewModel;
 import com.example.myapplication.R;
-import com.example.myapplication.Service.ClientService;
 import com.example.myapplication.Ui.Fragment.HomeFragment;
 import com.example.myapplication.Ui.Fragment.ProfileFragment;
 import com.example.myapplication.Ui.Fragment.SavedFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Field;
 
 
 public class HomePageActivity extends AppCompatActivity {
